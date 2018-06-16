@@ -1,4 +1,4 @@
-package ru.invictus.mystories.model;
+package io.shifu.project1.model;
 
 //user bin
 
@@ -26,6 +26,15 @@ public class User {
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "confirmation_token")
+    private String confirmationToken;
+
+    @Column(name = "enabled")
+    private boolean enabled;
 
     public long getId() {
         return id;
@@ -65,5 +74,29 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getConfirmationToken() {
+        return confirmationToken;
+    }
+
+    public void setConfirmationToken(String confirmationToken) {
+        this.confirmationToken = confirmationToken;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

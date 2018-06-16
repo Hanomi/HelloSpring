@@ -1,16 +1,17 @@
-package ru.invictus.mystories.services;
+package io.shifu.project1.services;
 
 
+import io.shifu.project1.dao.UserDao;
+import io.shifu.project1.model.Role;
+import io.shifu.project1.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
-import ru.invictus.mystories.dao.UserDao;
-import ru.invictus.mystories.model.Role;
-import ru.invictus.mystories.model.User;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -29,6 +30,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userDao.findByUsername(username);
+
+        if (!user.isEnabled()) return null;
 
         //получаем все роли пользователя из дб и отмечаем их у него
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();

@@ -1,14 +1,14 @@
-package ru.invictus.mystories.services;
+package io.shifu.project1.services;
 
 // implementation of userService for User
 
+import io.shifu.project1.dao.RoleDao;
+import io.shifu.project1.dao.UserDao;
+import io.shifu.project1.model.Role;
+import io.shifu.project1.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.invictus.mystories.dao.RoleDao;
-import ru.invictus.mystories.dao.UserDao;
-import ru.invictus.mystories.model.Role;
-import ru.invictus.mystories.model.User;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -44,5 +44,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByUsername(String username) {
         return userDao.findByUsername(username);
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        return userDao.findByEmail(email);
+    }
+
+    @Override
+    public User findByConfirmationToken(String confirmationToken) {
+        return userDao.findByConfirmationToken(confirmationToken);
     }
 }

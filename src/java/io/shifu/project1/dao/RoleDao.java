@@ -1,7 +1,7 @@
-package ru.invictus.mystories.dao;
+package io.shifu.project1.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.invictus.mystories.model.Role;
+import io.shifu.project1.model.Role;
 
 public interface RoleDao extends JpaRepository<Role, Long> {
 }

@@ -21,7 +21,7 @@
         </authentication-provider>
     </authentication-manager>
 
-    <beans:bean id="userDetailsServiceImpl" class="ru.invictus.mystories.services.UserDetailsServiceImpl"/>
+    <beans:bean id="userDetailsServiceImpl" class="io.shifu.project1.services.UserDetailsServiceImpl"/>
 
     <beans:bean id="encoder"
           class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">

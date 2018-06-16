@@ -1,16 +1,18 @@
-package ru.invictus.mystories.controller;
+package io.shifu.project1.controller;
 
+import io.shifu.project1.model.User;
+import io.shifu.project1.services.EmailService;
+import io.shifu.project1.services.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import ru.invictus.mystories.model.User;
-import ru.invictus.mystories.services.SecurityService;
-import ru.invictus.mystories.services.UserService;
-import ru.invictus.mystories.validator.UserValidator;
+import io.shifu.project1.services.UserService;
+import io.shifu.project1.validator.UserValidator;
 
 /**
  * Controller for Users page
@@ -24,6 +26,9 @@ public class UserController {
 
     @Autowired
     private SecurityService securityService;
+
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     private UserValidator userValidator;
@@ -43,11 +48,28 @@ public class UserController {
             return "registration";
         }
 
+        // не активный
+        userForm.setEnabled(false);
+
         userService.save(userForm);
 
-        securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
+        //todo fix it
+        String appUrl = "http://localhost:8080";
 
-        return "redirect:/welcome";
+        SimpleMailMessage registrationEmail = new SimpleMailMessage();
+        registrationEmail.setTo(userForm.getEmail());
+        registrationEmail.setSubject("Registration Confirmation");
+        registrationEmail.setText("To confirm your e-mail address, please click the link below:\n"
+                + appUrl + "/confirm?token=" + userForm.getConfirmationToken());
+        registrationEmail.setFrom("noreply@domain.com");
+        //emailService.sendEmail(registrationEmail);
+
+        //securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
+
+        //return "redirect:/welcome";
+        model.addAttribute("message", "A confirmation e-mail has been sent to " + userForm.getEmail());
+
+        return "login";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -61,6 +83,11 @@ public class UserController {
         }
 
         return "login";
+    }
+
+    @RequestMapping(value = "/confirm", method = RequestMethod.GET)
+    public String confirm(Model model) {
+        return "welcome";
     }
 
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)

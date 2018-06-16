@@ -1,4 +1,4 @@
-package ru.invictus.mystories.model;
+package io.shifu.project1.model;
 
 import javax.persistence.*;
 import java.util.Set;

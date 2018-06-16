@@ -1,15 +1,15 @@
-package ru.invictus.mystories.validator;
+package io.shifu.project1.validator;
 
+import io.shifu.project1.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
-import ru.invictus.mystories.model.User;
-import ru.invictus.mystories.services.UserService;
+import io.shifu.project1.services.UserService;
 
 /**
- * Validator for {@link ru.invictus.mystories.model.User} class,
+ * Validator for {@link User} class,
  * implements {@link Validator}
  */
 
@@ -28,6 +28,7 @@ public class UserValidator implements Validator {
     public void validate(Object o, Errors errors) {
         User user = (User) o;
 
+        //validate username
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
         if (user.getUsername().length() < 6 || user.getUsername().length() > 32) {
             errors.rejectValue("username", "Size.userForm.password");
@@ -37,6 +38,7 @@ public class UserValidator implements Validator {
             errors.rejectValue("username", "Duplicate.userForm.username");
         }
 
+        //validate password
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
         if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
             errors.rejectValue("password", "Size.userForm.password");
@@ -44,6 +46,12 @@ public class UserValidator implements Validator {
 
         if (!user.getConfirmPassword().equals(user.getPassword())) {
             errors.rejectValue("confirmPassword", "Diff.userForm.passwordConfirm");
+        }
+
+        //validate email
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
+        if (userService.findByEmail(user.getEmail()) != null) {
+            errors.rejectValue("email", "Duplicate.userForm.email");
         }
     }
 }

@@ -6,14 +6,14 @@
 
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <!-- Scans within the base package of the application for @Component classes to configure as beans -->
+    <context:component-scan base-package="io.shifu.project1.*"/>
+
+    <context:property-placeholder location="classpath:database.properties"/>
+
     <import resource="appconfig-mvc.xml"/>
 
     <import resource="appconfig-data.xml"/>
 
     <import resource="appconfig-security.xml"/>
-
-    <!-- Scans within the base package of the application for @Component classes to configure as beans -->
-    <context:component-scan base-package="ru.invictus.mystories.*"/>
-
-    <context:property-placeholder location="classpath:database.properties"/>
 </beans>
