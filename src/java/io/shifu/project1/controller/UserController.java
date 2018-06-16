@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import io.shifu.project1.services.UserService;
 import io.shifu.project1.validator.UserValidator;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.UUID;
 
 /**
  * Controller for Users page
@@ -48,12 +51,14 @@ public class UserController {
             return "registration";
         }
 
-        // не активный
+        // Disable user until they click on confirmation link in email
         userForm.setEnabled(false);
+
+        // Generate random 36-character string token for confirmation link
+        userForm.setConfirmationToken(UUID.randomUUID().toString());
 
         userService.save(userForm);
 
-        //todo fix it
         String appUrl = "http://localhost:8080";
 
         SimpleMailMessage registrationEmail = new SimpleMailMessage();
@@ -85,9 +90,16 @@ public class UserController {
         return "login";
     }
 
-    @RequestMapping(value = "/confirm", method = RequestMethod.GET)
-    public String confirm(Model model) {
-        return "welcome";
+    // Process confirmation link
+    @RequestMapping(value="/confirm", method = RequestMethod.GET)
+    public String confirm(Model model, @RequestParam("token") String token) {
+        User user = userService.findByConfirmationToken(token);
+        if (user == null) { // No token found in DB
+            model.addAttribute("error", "Oops!  This is an invalid confirmation link.");
+        } else { // Token found
+            userService.activationUser(user);
+        }
+        return "login";
     }
 
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)

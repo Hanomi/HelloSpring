@@ -11,4 +11,6 @@ public interface UserService {
     User findByEmail(String email);
 
     User findByConfirmationToken(String confirmationToken);
+
+    void activationUser(User user);
 }

@@ -42,6 +42,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void activationUser(User user) {
+        user.setConfirmationToken(null);
+        user.setEnabled(true);
+        userDao.save(user);
+    }
+
+    @Override
     public User findByUsername(String username) {
         return userDao.findByUsername(username);
     }
