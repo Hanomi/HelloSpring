@@ -43,6 +43,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void activationUser(User user) {
+        // активируем пользователя
         user.setConfirmationToken(null);
         user.setEnabled(true);
         userDao.save(user);

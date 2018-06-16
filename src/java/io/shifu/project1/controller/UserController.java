@@ -66,8 +66,8 @@ public class UserController {
         registrationEmail.setSubject("Registration Confirmation");
         registrationEmail.setText("To confirm your e-mail address, please click the link below:\n"
                 + appUrl + "/confirm?token=" + userForm.getConfirmationToken());
-        registrationEmail.setFrom("noreply@domain.com");
-        //emailService.sendEmail(registrationEmail);
+        registrationEmail.setFrom("nproject1meir@gmail.com");
+        emailService.sendEmail(registrationEmail);
 
         //securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
 
@@ -93,10 +93,15 @@ public class UserController {
     // Process confirmation link
     @RequestMapping(value="/confirm", method = RequestMethod.GET)
     public String confirm(Model model, @RequestParam("token") String token) {
+        if (token == null || token.isEmpty()) {
+            model.addAttribute("error", "Oops!  This is an invalid confirmation link.");
+            return "login";
+        }
         User user = userService.findByConfirmationToken(token);
         if (user == null) { // No token found in DB
             model.addAttribute("error", "Oops!  This is an invalid confirmation link.");
         } else { // Token found
+            model.addAttribute("message", user.getUsername() + " success activated");
             userService.activationUser(user);
         }
         return "login";
