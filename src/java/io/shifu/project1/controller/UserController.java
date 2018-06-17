@@ -57,10 +57,8 @@ public class UserController {
         // Generate random 36-character string token for confirmation link
         userForm.setConfirmationToken(UUID.randomUUID().toString());
 
-        userService.save(userForm);
-
+        // Send email
         String appUrl = "http://localhost:8080";
-
         SimpleMailMessage registrationEmail = new SimpleMailMessage();
         registrationEmail.setTo(userForm.getEmail());
         registrationEmail.setSubject("Registration Confirmation");
@@ -69,9 +67,9 @@ public class UserController {
         registrationEmail.setFrom("nproject1meir@gmail.com");
         emailService.sendEmail(registrationEmail);
 
-        //securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
+        // Save user
+        userService.save(userForm);
 
-        //return "redirect:/welcome";
         model.addAttribute("message", "A confirmation e-mail has been sent to " + userForm.getEmail());
 
         return "login";
@@ -80,7 +78,7 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, String error, String logout) {
         if (error != null) {
-            model.addAttribute("error", "Username or password is incorrect");
+            model.addAttribute("error", "Input is incorrect or account not active");
         }
 
         if (logout != null) {
@@ -110,10 +108,5 @@ public class UserController {
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
     public String welcome(Model model) {
         return "welcome";
-    }
-
-    @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public String admin(Model model) {
-        return "admin";
     }
 }
