@@ -22,8 +22,10 @@
         <form id="logoutForm" method="post" action="${contextPath}/logout">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
-        <h3>Admin page ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a>
-        </h3>
+        <h4>Welcome ${pageContext.request.userPrincipal.name} |
+            <a href="${contextPath}/" class="badge badge-primary">Home</a> |
+            <a href="${contextPath}/" onclick="document.forms['logoutForm'].submit()" class="badge badge-primary">Logout</a>
+        </h4>
         <form:form method="POST" modelAttribute="storyForm" class="form-signin">
             <h3 class="form-signin-heading">Add new story</h3>
             <spring:bind path="title">

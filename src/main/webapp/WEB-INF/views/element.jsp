@@ -11,7 +11,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Welcome</title>
+    <title>Story</title>
 
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -26,29 +26,23 @@
 
             <h4>Welcome ${pageContext.request.userPrincipal.name} |
                 <a href="${contextPath}/" class="badge badge-primary">Home</a> |
-                <a href="#" onclick="document.forms['logoutForm'].submit()" class="badge badge-primary">Logout</a>
+                <a href="${contextPath}/" onclick="document.forms['logoutForm'].submit()" class="badge badge-primary">Logout</a>
             </h4>
         </c:if>
     </div>
     <div class="row justify-content-md-center">
-        <c:if test="${!empty listStory}">
+        <c:if test="${currentStory != null}">
             <div class="col col-lg-8">
-                <table class="table table-hover">
+                <table class="table">
                     <thead class="thead-light">
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Title</th>
-                        <th scope="col"></th>
+                        <th scope="col">${currentStory.title}</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${listStory}" var="story">
                         <tr>
-                            <th scope="row">${story.id}</th>
-                            <td>${story.title}</td>
-                            <td><a href="${contextPath}/element/${story.slug}" class="badge badge-primary">Read</a></td>
+                            <td>${currentStory.content}</td>
                         </tr>
-                    </c:forEach>
                     </tbody>
                 </table>
             </div>
