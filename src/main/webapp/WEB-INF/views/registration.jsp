@@ -24,32 +24,32 @@
     <form:form method="POST" modelAttribute="userForm" class="form-signin">
         <h2 class="form-signin-heading">Create your account</h2>
         <spring:bind path="username">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
+            <div class="form-group">
                 <form:input type="text" path="username" class="form-control" placeholder="Username"
-                            autofocus="true"></form:input>
-                <form:errors path="username"></form:errors>
+                            autofocus="true"/>
+                <form:errors path="username"/>
             </div>
         </spring:bind>
 
         <spring:bind path="password">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="password" path="password" class="form-control" placeholder="Password"></form:input>
-                <form:errors path="password"></form:errors>
+            <div class="form-group">
+                <form:input type="password" path="password" class="form-control" placeholder="Password"/>
+                <form:errors path="password"/>
             </div>
         </spring:bind>
 
         <spring:bind path="confirmPassword">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
+            <div class="form-group">
                 <form:input type="password" path="confirmPassword" class="form-control"
-                            placeholder="Confirm your password"></form:input>
-                <form:errors path="confirmPassword"></form:errors>
+                            placeholder="Confirm your password"/>
+                <form:errors path="confirmPassword"/>
             </div>
         </spring:bind>
 
         <spring:bind path="email">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="email" class="form-control" placeholder="Email"></form:input>
-                <form:errors path="email"></form:errors>
+            <div class="form-group">
+                <form:input type="text" path="email" class="form-control" placeholder="Email"/>
+                <form:errors path="email"/>
             </div>
         </spring:bind>
 
@@ -66,6 +66,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
         integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
-<script src="${contextPath}/resources/js/bootstrap.min.j"></script>
+<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </body>
 </html>
