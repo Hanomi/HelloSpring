@@ -5,6 +5,8 @@ import io.shifu.project1.model.Story;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StoryServiceImp implements StoryService {
 
@@ -18,6 +20,11 @@ public class StoryServiceImp implements StoryService {
     @Override
     public void save(Story story) {
         storyDao.save(story);
+    }
+
+    @Override
+    public List<Story> findAll() {
+        return storyDao.findAll();
     }
 
     @Override
