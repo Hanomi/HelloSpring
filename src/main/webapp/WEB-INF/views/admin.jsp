@@ -27,7 +27,7 @@
             <a href="${contextPath}/" onclick="document.forms['logoutForm'].submit()" class="badge badge-primary">Logout</a>
         </h4>
         <form:form method="POST" modelAttribute="storyForm" class="form-signin">
-            <h3 class="form-signin-heading">Add new story</h3>
+            <h4 class="form-signin-heading">Add new story</h4>
             <spring:bind path="title">
                 <div class="form-group">
                     <form:input type="text" path="title" class="form-control" placeholder="Title"
