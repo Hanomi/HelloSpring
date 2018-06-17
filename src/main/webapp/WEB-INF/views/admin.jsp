@@ -38,7 +38,7 @@
 
             <spring:bind path="content">
                 <div class="form-group">
-                    <form:input type="text" path="content" class="form-control" placeholder="Data"/>
+                    <form:textarea path="content" class="form-control" placeholder="Data" rows="7"/>
                     <form:errors path="content"/>
                 </div>
             </spring:bind>
