@@ -27,6 +27,11 @@
         <h3>Welcome ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a>
         </h3>
 
+        <c:if test="${!empty listStory}">
+                <c:forEach items="${listStory}" var="story">
+                    <p>${story.content}}</p>
+                </c:forEach>
+        </c:if>
     </c:if>
 
 </div>
