@@ -1,5 +1,6 @@
 package io.shifu.project1.controller;
 
+import io.shifu.project1.model.Story;
 import io.shifu.project1.services.StoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,8 +24,10 @@ public class ElementController {
     @RequestMapping(value = "/{slug}", method = RequestMethod.GET)
     public String welcome(Model model, @PathVariable("slug") String slug) {
         //load story by slug
-        model.addAttribute("currentStory", storyService.findBySlug(slug));
+        Story currentStory = storyService.findBySlug(slug);
+        model.addAttribute("currentStory", currentStory);
 
+        model.addAttribute("title", currentStory.getTitle());
         return "element";
     }
 }

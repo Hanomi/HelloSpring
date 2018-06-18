@@ -40,6 +40,7 @@ public class UserController {
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
 
+        model.addAttribute("title", "Create an account");
         return "registration";
     }
 
@@ -48,6 +49,7 @@ public class UserController {
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
+            model.addAttribute("title", "Create an account");
             return "registration";
         }
 
@@ -72,6 +74,7 @@ public class UserController {
 
         model.addAttribute("message", "A confirmation e-mail has been sent to " + userForm.getEmail());
 
+        model.addAttribute("title", "Log in with your account");
         return "login";
     }
 
@@ -85,6 +88,7 @@ public class UserController {
             model.addAttribute("message", "Logged out successfully");
         }
 
+        model.addAttribute("title", "Log in with your account");
         return "login";
     }
 
@@ -102,6 +106,7 @@ public class UserController {
             model.addAttribute("message", user.getUsername() + " success activated");
             userService.activationUser(user);
         }
+        model.addAttribute("title", "Log in with your account");
         return "login";
     }
 }

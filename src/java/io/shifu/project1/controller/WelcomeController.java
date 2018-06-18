@@ -22,6 +22,7 @@ public class WelcomeController {
         //load all story
         model.addAttribute("listStory", storyService.findAll());
 
+        model.addAttribute("title", "Welcome");
         return "welcome";
     }
 }

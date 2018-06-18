@@ -28,6 +28,7 @@ public class AdminController {
     public String admin(Model model) {
         model.addAttribute("storyForm", new Story());
 
+        model.addAttribute("title", "Admin page");
         return "admin";
     }
 
@@ -44,6 +45,7 @@ public class AdminController {
         model.addAttribute("message", "Story: \"" + storyForm.getTitle() + "\" added, slug: " + storyForm.getSlug());
         model.addAttribute("storyForm", new Story());
 
+        model.addAttribute("title", "Admin page");
         return "admin";
     }
 }
