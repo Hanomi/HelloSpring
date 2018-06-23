@@ -1,4 +1,4 @@
-<%@ include file="templates/header.jspf"%>
+<%@ include file="templates/start.jspf"%>
 
 <div class="row justify-content-md-center">
     <form:form method="POST" modelAttribute="userForm" class="form-signin">
@@ -37,4 +37,4 @@
     </form:form>
 </div>
 
-<%@ include file="templates/footer.jspf"%>
+<%@ include file="templates/end.jspf"%>

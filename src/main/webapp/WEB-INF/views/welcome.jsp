@@ -1,35 +1,19 @@
-<%@ include file="templates/header.jspf"%>
+<%@ include file="templates/start.jspf" %>
+<%@include file="templates/header.jspf" %>
 
-<div class="row justify-content-md-center">
-    <c:if test="${pageContext.request.userPrincipal.name != null}">
-
-        <form id="logoutForm" method="POST" action="${contextPath}/logout">
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        </form>
-
-        <h4>Welcome ${pageContext.request.userPrincipal.name} |
-            <a href="${contextPath}/" class="badge badge-primary">Home</a> |
-            <a href="#" onclick="document.forms['logoutForm'].submit()" class="badge badge-primary">Logout</a>
-        </h4>
-    </c:if>
-</div>
-<div class="row justify-content-md-center">
+<div class="row">
     <c:if test="${!empty listArticles}">
-        <div class="col col-lg-8">
+        <div class="col">
             <table class="table table-hover">
                 <thead class="thead-light">
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Title</th>
-                    <th scope="col"></th>
+                    <th scope="col">Articles:</th>
                 </tr>
                 </thead>
                 <tbody>
                 <c:forEach items="${listArticles}" var="article">
                     <tr>
-                        <th scope="row">${article.id}</th>
-                        <td>${article.title}</td>
-                        <td><a href="${contextPath}/element/${article.slug}" class="badge badge-primary">Read</a></td>
+                        <td><a href="${contextPath}/element/${article.slug}">${article.title}</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -38,4 +22,4 @@
     </c:if>
 </div>
 
-<%@ include file="templates/footer.jspf"%>
+<%@ include file="templates/end.jspf" %>

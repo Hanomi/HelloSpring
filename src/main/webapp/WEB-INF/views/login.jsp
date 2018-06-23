@@ -1,4 +1,4 @@
-<%@ include file="templates/header.jspf"%>
+<%@ include file="templates/start.jspf"%>
 
 <div class="row justify-content-md-center">
     <form method="POST" action="${contextPath}/login" class="form-signin">
@@ -16,4 +16,4 @@
     </form>
 </div>
 
-<%@ include file="templates/footer.jspf"%>
+<%@ include file="templates/end.jspf"%>
