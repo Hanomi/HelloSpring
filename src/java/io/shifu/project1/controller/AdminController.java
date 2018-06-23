@@ -26,25 +26,6 @@ public class AdminController {
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String admin(Model model) {
-        model.addAttribute("articleForm", new Article());
-
-        model.addAttribute("title", "Admin page");
-        return "admin/admin";
-    }
-
-    @RequestMapping(value = "/admin", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("articleForm") Article articleForm, BindingResult bindingResult, Model model) {
-        articleValidator.validate(articleForm, bindingResult);
-
-        if (bindingResult.hasErrors()) {
-            return "admin/admin";
-        }
-
-        articleService.save(articleForm);
-
-        model.addAttribute("message", "Article: \"" + articleForm.getTitle() + "\" added, slug: " + articleForm.getSlug());
-        model.addAttribute("storyForm", new Article());
-
         model.addAttribute("title", "Admin page");
         return "admin/admin";
     }
@@ -56,5 +37,30 @@ public class AdminController {
 
         model.addAttribute("title", "Articles");
         return "admin/articles";
+    }
+
+    @RequestMapping(value = "/admin/articles/add", method = RequestMethod.GET)
+    public String add(Model model) {
+        model.addAttribute("articleForm", new Article());
+
+        model.addAttribute("title", "Add article");
+        return "admin/add";
+    }
+
+    @RequestMapping(value = "/admin/articles/add", method = RequestMethod.POST)
+    public String addSave(@ModelAttribute("articleForm") Article articleForm, BindingResult bindingResult, Model model) {
+        articleValidator.validate(articleForm, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "admin/admin";
+        }
+
+        articleService.save(articleForm);
+
+        model.addAttribute("message", "Article: \"" + articleForm.getTitle() + "\" added, slug: " + articleForm.getSlug());
+        model.addAttribute("articleForm", new Article());
+
+        model.addAttribute("title", "Add article");
+        return "admin/add";
     }
 }
