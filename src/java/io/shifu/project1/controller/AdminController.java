@@ -45,34 +45,27 @@ public class AdminController {
         return "admin/articles";
     }
 
-    @RequestMapping(value = "/admin/articles/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/articles/add")
     public String add(Model model) {
         model.addAttribute("articleForm", new Article());
-
         model.addAttribute("title", "Add article");
         return "admin/add";
     }
 
-    @RequestMapping(value = "/admin/articles/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/articles/add/save", method = RequestMethod.POST)
     public String addSave(@ModelAttribute("articleForm") Article articleForm, BindingResult bindingResult, Model model) {
         articleValidator.validate(articleForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            return "admin/admin";
+            return "admin/add";
         }
 
         articleService.save(articleForm);
-
-        model.addAttribute("message", "Article: \"" + articleForm.getTitle() + "\" added, slug: " + articleForm.getSlug());
-        model.addAttribute("articleForm", new Article());
-
-        model.addAttribute("title", "Add article");
-        return "admin/add";
+        return "redirect:/admin/articles";
     }
 
     @RequestMapping(value = "/admin/articles/edit/{slug}")
     public String editElement(@PathVariable("slug") String slug, Model model) {
-        //load story by slug
         Article currentArticle = articleService.findBySlug(slug);
         model.addAttribute("articleForm", currentArticle);
         return "admin/edit";
@@ -83,10 +76,7 @@ public class AdminController {
         articleEditValidator.validate(article, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            //todo add error message
-            //modelAndView.setViewName("admin/edit");
             return "admin/edit";
-            //return new ModelAndView("admin/edit", "editForm", article);
         }
 
         articleService.save(article);
