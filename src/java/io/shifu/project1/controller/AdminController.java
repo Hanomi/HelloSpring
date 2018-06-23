@@ -86,4 +86,9 @@ public class AdminController {
         articleService.delete(slug);
         return "redirect:/admin/articles";
     }
+
+    @RequestMapping(value = "/404")
+    public String show() {
+        return "errorPages/404";
+    }
 }
