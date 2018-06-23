@@ -1,6 +1,6 @@
 package io.shifu.project1.services;
 
-import io.shifu.project1.dao.ArticleDao;
+import io.shifu.project1.repository.ArticleRepository;
 import io.shifu.project1.model.Article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,25 +10,30 @@ import java.util.List;
 @Service
 public class ArticleServiceImp implements ArticleService {
 
-    private final ArticleDao articleDao;
+    private final ArticleRepository articleRepository;
 
     @Autowired
-    public ArticleServiceImp(ArticleDao articleDao) {
-        this.articleDao = articleDao;
+    public ArticleServiceImp(ArticleRepository articleRepository) {
+        this.articleRepository = articleRepository;
     }
 
     @Override
     public void save(Article article) {
-        articleDao.save(article);
+        articleRepository.save(article);
     }
 
     @Override
     public List<Article> findAll() {
-        return articleDao.findAll();
+        return articleRepository.findAll();
     }
 
     @Override
     public Article findBySlug(String slug) {
-        return articleDao.findBySlug(slug);
+        return articleRepository.findBySlug(slug);
+    }
+
+    @Override
+    public Article findById(Long id) {
+        return articleRepository.findOne(id);
     }
 }

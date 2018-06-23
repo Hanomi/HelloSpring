@@ -1,12 +1,12 @@
 package io.shifu.project1.validator;
 
-import io.shifu.project1.model.Article;
-import io.shifu.project1.services.ArticleService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
-import org.springframework.validation.Validator;
+        import io.shifu.project1.model.Article;
+        import io.shifu.project1.services.ArticleService;
+        import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.stereotype.Component;
+        import org.springframework.validation.Errors;
+        import org.springframework.validation.ValidationUtils;
+        import org.springframework.validation.Validator;
 
 /**
  * Validator for {@link Article} class,
@@ -14,7 +14,7 @@ import org.springframework.validation.Validator;
  */
 
 @Component
-public class ArticleValidator implements Validator {
+public class ArticleEditValidator implements Validator {
 
     @Autowired
     private ArticleService articleService;
@@ -36,7 +36,8 @@ public class ArticleValidator implements Validator {
 
         //validate slug
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "slug", "NotEmpty");
-        if (articleService.findBySlug(article.getSlug()) != null) {
+
+        if (!article.getSlug().equals(articleService.findById(article.getId()).getSlug()) && articleService.findBySlug(article.getSlug()) != null) {
             errors.rejectValue("slug", "Duplicate.articleForm.slug");
         }
     }

@@ -46,6 +46,6 @@
       Configure Spring Data JPA and set the base package of the
       repository interfaces
     -->
-    <jpa:repositories base-package="io.shifu.project1.dao"/>
+    <jpa:repositories base-package="io.shifu.project1.repository"/>
 
 </beans>

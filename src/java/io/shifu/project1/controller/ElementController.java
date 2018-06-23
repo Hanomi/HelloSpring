@@ -22,8 +22,8 @@ public class ElementController {
     private ArticleService articleService;
 
     @RequestMapping(value = "/{slug}", method = RequestMethod.GET)
-    public String welcome(Model model, @PathVariable("slug") String slug) {
-        //load story by slug
+    public String showElement(Model model, @PathVariable("slug") String slug) {
+        //load article by slug
         Article currentArticle = articleService.findBySlug(slug);
         model.addAttribute("currentArticle", currentArticle);
 

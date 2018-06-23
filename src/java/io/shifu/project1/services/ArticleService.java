@@ -11,4 +11,6 @@ public interface ArticleService {
     Article findBySlug(String slug);
 
     List<Article> findAll();
+
+    Article findById(Long id);
 }

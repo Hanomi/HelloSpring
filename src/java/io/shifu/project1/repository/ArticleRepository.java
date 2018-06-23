@@ -1,8 +1,8 @@
-package io.shifu.project1.dao;
+package io.shifu.project1.repository;
 
 import io.shifu.project1.model.Article;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ArticleDao extends JpaRepository<Article, Long> {
+public interface ArticleRepository extends JpaRepository<Article, Long> {
     Article findBySlug(String slug);
 }

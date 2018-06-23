@@ -1,11 +1,10 @@
 package io.shifu.project1.services;
 
 
-import io.shifu.project1.dao.UserDao;
+import io.shifu.project1.repository.UserRepository;
 import io.shifu.project1.model.Role;
 import io.shifu.project1.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,12 +23,12 @@ import java.util.Set;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UserDao userDao;
+    private UserRepository userRepository;
 
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userDao.findByUsername(username);
+        User user = userRepository.findByUsername(username);
 
         if (!user.isEnabled()) return null;
 

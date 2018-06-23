@@ -2,14 +2,17 @@ package io.shifu.project1.controller;
 
 import io.shifu.project1.model.Article;
 import io.shifu.project1.services.ArticleService;
+import io.shifu.project1.validator.ArticleEditValidator;
 import io.shifu.project1.validator.ArticleValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Controller for Admin page
@@ -20,6 +23,9 @@ public class AdminController {
 
     @Autowired
     private ArticleValidator articleValidator;
+
+    @Autowired
+    private ArticleEditValidator articleEditValidator;
 
     @Autowired
     private ArticleService articleService;
@@ -62,5 +68,28 @@ public class AdminController {
 
         model.addAttribute("title", "Add article");
         return "admin/add";
+    }
+
+    @RequestMapping(value = "/admin/articles/edit/{slug}")
+    public String editElement(@PathVariable("slug") String slug, Model model) {
+        //load story by slug
+        Article currentArticle = articleService.findBySlug(slug);
+        model.addAttribute("articleForm", currentArticle);
+        return "admin/edit";
+    }
+
+    @RequestMapping(value="/admin/articles/edit/save",method = RequestMethod.POST)
+    public String editSave(@ModelAttribute("articleForm") Article article, BindingResult bindingResult, Model model){
+        articleEditValidator.validate(article, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            //todo add error message
+            //modelAndView.setViewName("admin/edit");
+            return "admin/edit";
+            //return new ModelAndView("admin/edit", "editForm", article);
+        }
+
+        articleService.save(article);
+        return "redirect:/admin/articles";
     }
 }

@@ -2,8 +2,8 @@ package io.shifu.project1.services;
 
 // implementation of userService for User
 
-import io.shifu.project1.dao.RoleDao;
-import io.shifu.project1.dao.UserDao;
+import io.shifu.project1.repository.RoleRepository;
+import io.shifu.project1.repository.UserRepository;
 import io.shifu.project1.model.Role;
 import io.shifu.project1.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +16,16 @@ import java.util.Set;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final UserDao userDao;
+    private final UserRepository userRepository;
 
-    private final RoleDao roleDao;
+    private final RoleRepository roleRepository;
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserDao userDao, RoleDao roleDao, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.userDao = userDao;
-        this.roleDao = roleDao;
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
@@ -35,10 +35,10 @@ public class UserServiceImpl implements UserService {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         // присваеваем роль по умолчанию
         Set<Role> roles = new HashSet<>();
-        roles.add(roleDao.getOne(1L));
+        roles.add(roleRepository.getOne(1L));
         user.setRoles(roles);
         // сохраняем
-        userDao.save(user);
+        userRepository.save(user);
     }
 
     @Override
@@ -46,21 +46,21 @@ public class UserServiceImpl implements UserService {
         // активируем пользователя
         user.setConfirmationToken(null);
         user.setEnabled(true);
-        userDao.save(user);
+        userRepository.save(user);
     }
 
     @Override
     public User findByUsername(String username) {
-        return userDao.findByUsername(username);
+        return userRepository.findByUsername(username);
     }
 
     @Override
     public User findByEmail(String email) {
-        return userDao.findByEmail(email);
+        return userRepository.findByEmail(email);
     }
 
     @Override
     public User findByConfirmationToken(String confirmationToken) {
-        return userDao.findByConfirmationToken(confirmationToken);
+        return userRepository.findByConfirmationToken(confirmationToken);
     }
 }
