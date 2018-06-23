@@ -1,3 +1,5 @@
+<%@ include file="templates/header.jspf"%>
+
 <div class="row justify-content-md-center">
     <form method="POST" action="${contextPath}/login" class="form-signin">
         <h2 class="form-heading">Log in</h2>
@@ -13,3 +15,5 @@
         </div>
     </form>
 </div>
+
+<%@ include file="templates/footer.jspf"%>

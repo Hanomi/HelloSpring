@@ -1,3 +1,5 @@
+<%@ include file="templates/adminTop.jspf"%>
+
 <c:if test="${pageContext.request.userPrincipal.name != null}">
     <div class="row justify-content-md-center">
         <form id="logoutForm" method="post" action="${contextPath}/logout">
@@ -40,3 +42,6 @@
         </div>
     </div>
 </c:if>
+
+<%@ include file="templates/adminBottom.jspf"%>
+

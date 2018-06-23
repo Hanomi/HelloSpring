@@ -29,7 +29,7 @@ public class AdminController {
         model.addAttribute("storyForm", new Story());
 
         model.addAttribute("title", "Admin page");
-        return "admin";
+        return "admin/admin";
     }
 
     @RequestMapping(value = "/admin", method = RequestMethod.POST)
@@ -37,7 +37,7 @@ public class AdminController {
         storyValidator.validate(storyForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            return "admin";
+            return "admin/admin";
         }
 
         storyService.save(storyForm);
@@ -46,6 +46,6 @@ public class AdminController {
         model.addAttribute("storyForm", new Story());
 
         model.addAttribute("title", "Admin page");
-        return "admin";
+        return "admin/admin";
     }
 }

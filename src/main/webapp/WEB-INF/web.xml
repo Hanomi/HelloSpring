@@ -29,14 +29,6 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-    <jsp-config>
-        <jsp-property-group>
-            <url-pattern>*.jsp</url-pattern>
-            <include-prelude>/WEB-INF/views/templates/header.jspf</include-prelude>
-            <include-coda>/WEB-INF/views/templates/footer.jspf</include-coda>
-        </jsp-property-group>
-    </jsp-config>
-
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>

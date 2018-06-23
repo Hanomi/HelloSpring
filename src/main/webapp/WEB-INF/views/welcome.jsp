@@ -1,3 +1,5 @@
+<%@ include file="templates/header.jspf"%>
+
 <div class="row justify-content-md-center">
     <c:if test="${pageContext.request.userPrincipal.name != null}">
 
@@ -35,3 +37,5 @@
         </div>
     </c:if>
 </div>
+
+<%@ include file="templates/footer.jspf"%>
