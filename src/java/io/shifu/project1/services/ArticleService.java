@@ -1,6 +1,7 @@
 package io.shifu.project1.services;
 
 import io.shifu.project1.model.Article;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,4 +14,7 @@ public interface ArticleService {
     List<Article> findAll();
 
     Article findById(Long id);
+
+    @Transactional
+    void delete(String slug);
 }

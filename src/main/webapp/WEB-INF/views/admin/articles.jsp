@@ -22,7 +22,7 @@
                             <td>
                                 <a href="${contextPath}/element/${article.slug}" class="btn btn-outline-success" role="button">Read</a>
                                 <a href="${contextPath}/admin/articles/edit/${article.slug}" class="btn btn-outline-primary" role="button">Edit</a>
-                                <a href="${contextPath}/element/${article.slug}" class="btn btn-outline-danger" role="button">Delete</a>
+                                <a href="${contextPath}/admin/articles/delete/${article.slug}" class="btn btn-outline-danger" role="button">Delete</a>
                             </td>
                         </tr>
                     </c:forEach>

@@ -68,11 +68,12 @@ public class AdminController {
     public String editElement(@PathVariable("slug") String slug, Model model) {
         Article currentArticle = articleService.findBySlug(slug);
         model.addAttribute("articleForm", currentArticle);
+        model.addAttribute("title", "Edit: " + currentArticle.getTitle());
         return "admin/edit";
     }
 
     @RequestMapping(value="/admin/articles/edit/save",method = RequestMethod.POST)
-    public String editSave(@ModelAttribute("articleForm") Article article, BindingResult bindingResult, Model model){
+    public String editSave(@ModelAttribute("articleForm") Article article, BindingResult bindingResult){
         articleEditValidator.validate(article, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -80,6 +81,12 @@ public class AdminController {
         }
 
         articleService.save(article);
+        return "redirect:/admin/articles";
+    }
+
+    @RequestMapping(value = "/admin/articles/delete/{slug}")
+    public String delete(@PathVariable("slug") String slug, Model model) {
+        articleService.delete(slug);
         return "redirect:/admin/articles";
     }
 }
