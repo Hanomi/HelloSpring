@@ -8,21 +8,21 @@
             <h4>Edit article</h4>
             <form:form method="POST" modelAttribute="articleForm" action="${contextPath}/admin/articles/edit/save">
                 <form:hidden path="id"/>
-                <p>
-                        <form:input path="title" title="Title" placeholder="Title"/>
-                        <form:errors path="title"/>
-                </p>
-                <p>
-                        <form:textarea path="content" title="Content" placeholder="Content"/>
-                        <form:errors path="content"/>
-                </p>
-                <p>
-                        <form:input path="slug" title="Slug" placeholder="Slug"/>
-                        <form:errors path="slug"/>
-                </p>
-                <p>
-                    <input type="submit" value="Save"/>
-                </p>
+                <div class="form-group">
+                    <form:input path="title" title="Title" class="form-control" placeholder="Title"/>
+                    <form:errors path="title" class="form-text text-muted"/>
+                </div>
+                <div class="form-group">
+                    <form:textarea path="content" title="Content" class="form-control" placeholder="Content"/>
+                    <form:errors path="content" class="form-text text-muted"/>
+                </div>
+                <div class="form-group">
+                    <form:input path="slug" title="Slug" class="form-control" placeholder="Slug"/>
+                    <form:errors path="slug" class="form-text text-muted"/>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary btn-lg btn-block" value="Save"/>
+                </div>
             </form:form>
         </div>
     </div>
