@@ -8,18 +8,18 @@
             <div class="col">
                 <table class="table table-hover">
                     <thead class="thead-light">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Title</th>
-                        <th scope="col"></th>
+                    <tr class="d-flex">
+                        <th class="col-1">#</th>
+                        <th class="col-8">Title</th>
+                        <th class="col-3"></th>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach items="${listArticles}" var="article">
-                        <tr>
-                            <th scope="row">${article.id}</th>
-                            <td>${article.title}</td>
-                            <td>
+                        <tr class="d-flex">
+                            <td class="col-1">${article.id}</td>
+                            <td class="col-8">${article.title}</td>
+                            <td class="col-3">
                                 <a href="${contextPath}/element/${article.slug}" class="btn btn-outline-success" role="button">Read</a>
                                 <a href="${contextPath}/admin/articles/edit/${article.slug}" class="btn btn-outline-primary" role="button">Edit</a>
                                 <a href="${contextPath}/admin/articles/delete/${article.slug}" class="btn btn-outline-danger" role="button">Delete</a>
