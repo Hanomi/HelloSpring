@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Controller for Admin page
@@ -38,9 +37,7 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/articles", method = RequestMethod.GET)
     public String articles(Model model) {
-        //load all articles
         model.addAttribute("listArticles", articleService.findAll());
-
         model.addAttribute("title", "Articles");
         return "admin/articles";
     }
@@ -53,7 +50,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/admin/articles/add/save", method = RequestMethod.POST)
-    public String addSave(@ModelAttribute("articleForm") Article articleForm, BindingResult bindingResult, Model model) {
+    public String addSave(@ModelAttribute("articleForm") Article articleForm, BindingResult bindingResult) {
         articleValidator.validate(articleForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -85,7 +82,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/admin/articles/delete/{slug}")
-    public String delete(@PathVariable("slug") String slug, Model model) {
+    public String delete(@PathVariable("slug") String slug) {
         articleService.delete(slug);
         return "redirect:/admin/articles";
     }
