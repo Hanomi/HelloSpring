@@ -48,4 +48,13 @@ public class AdminController {
         model.addAttribute("title", "Admin page");
         return "admin/admin";
     }
+
+    @RequestMapping(value = "/admin/articles", method = RequestMethod.GET)
+    public String articles(Model model) {
+        //load all articles
+        model.addAttribute("listArticles", articleService.findAll());
+
+        model.addAttribute("title", "Articles");
+        return "admin/articles";
+    }
 }
