@@ -1,8 +1,8 @@
 package io.shifu.project1.controller;
 
-import io.shifu.project1.model.Story;
-import io.shifu.project1.services.StoryService;
-import io.shifu.project1.validator.StoryValidator;
+import io.shifu.project1.model.Article;
+import io.shifu.project1.services.ArticleService;
+import io.shifu.project1.validator.ArticleValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,31 +19,31 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class AdminController {
 
     @Autowired
-    private StoryValidator storyValidator;
+    private ArticleValidator articleValidator;
 
     @Autowired
-    private StoryService storyService;
+    private ArticleService articleService;
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String admin(Model model) {
-        model.addAttribute("storyForm", new Story());
+        model.addAttribute("articleForm", new Article());
 
         model.addAttribute("title", "Admin page");
         return "admin/admin";
     }
 
     @RequestMapping(value = "/admin", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("storyForm") Story storyForm, BindingResult bindingResult, Model model) {
-        storyValidator.validate(storyForm, bindingResult);
+    public String registration(@ModelAttribute("articleForm") Article articleForm, BindingResult bindingResult, Model model) {
+        articleValidator.validate(articleForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "admin/admin";
         }
 
-        storyService.save(storyForm);
+        articleService.save(articleForm);
 
-        model.addAttribute("message", "Story: \"" + storyForm.getTitle() + "\" added, slug: " + storyForm.getSlug());
-        model.addAttribute("storyForm", new Story());
+        model.addAttribute("message", "Article: \"" + articleForm.getTitle() + "\" added, slug: " + articleForm.getSlug());
+        model.addAttribute("storyForm", new Article());
 
         model.addAttribute("title", "Admin page");
         return "admin/admin";

@@ -14,7 +14,7 @@
     </c:if>
 </div>
 <div class="row justify-content-md-center">
-    <c:if test="${!empty listStory}">
+    <c:if test="${!empty listArticles}">
         <div class="col col-lg-8">
             <table class="table table-hover">
                 <thead class="thead-light">
@@ -25,11 +25,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${listStory}" var="story">
+                <c:forEach items="${listArticles}" var="article">
                     <tr>
-                        <th scope="row">${story.id}</th>
-                        <td>${story.title}</td>
-                        <td><a href="${contextPath}/element/${story.slug}" class="badge badge-primary">Read</a></td>
+                        <th scope="row">${article.id}</th>
+                        <td>${article.title}</td>
+                        <td><a href="${contextPath}/element/${article.slug}" class="badge badge-primary">Read</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>

@@ -3,8 +3,8 @@ package io.shifu.project1.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "story")
-public class Story {
+@Table(name = "articles")
+public class Article {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

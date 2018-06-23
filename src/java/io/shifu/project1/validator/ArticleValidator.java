@@ -1,7 +1,7 @@
 package io.shifu.project1.validator;
 
-import io.shifu.project1.model.Story;
-import io.shifu.project1.services.StoryService;
+import io.shifu.project1.model.Article;
+import io.shifu.project1.services.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -9,24 +9,24 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 /**
- * Validator for {@link Story} class,
+ * Validator for {@link Article} class,
  * implements {@link Validator}
  */
 
 @Component
-public class StoryValidator implements Validator {
+public class ArticleValidator implements Validator {
 
     @Autowired
-    private StoryService storyService;
+    private ArticleService articleService;
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return Story.class.equals(aClass);
+        return Article.class.equals(aClass);
     }
 
     @Override
     public void validate(Object o, Errors errors) {
-        Story story = (Story) o;
+        Article article = (Article) o;
 
         //validate title
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "NotEmpty");
@@ -36,7 +36,7 @@ public class StoryValidator implements Validator {
 
         //validate slug
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "slug", "NotEmpty");
-        if (storyService.findBySlug(story.getSlug()) != null) {
+        if (articleService.findBySlug(article.getSlug()) != null) {
             errors.rejectValue("slug", "Duplicate.storyForm.slug");
         }
     }

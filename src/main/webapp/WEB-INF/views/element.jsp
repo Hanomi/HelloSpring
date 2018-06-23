@@ -15,17 +15,17 @@
     </c:if>
 </div>
 <div class="row justify-content-md-center">
-    <c:if test="${currentStory != null}">
+    <c:if test="${currentArticle != null}">
         <div class="col col-lg-8">
             <table class="table">
                 <thead class="thead-light">
                 <tr>
-                    <th scope="col">${currentStory.title}</th>
+                    <th scope="col">${currentArticle.title}</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>${currentStory.content}</td>
+                    <td>${currentArticle.content}</td>
                 </tr>
                 </tbody>
             </table>
