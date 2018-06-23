@@ -58,7 +58,9 @@
         </c:if>
     </div>
     <div class="row">
-
+        <div class="col">
+            <a href="${contextPath}/admin/articles/add" class="btn btn-primary btn-lg btn-block" role="button">Add new article</a>
+        </div>
     </div>
 </c:if>
 <%@ include file="templates/adminBottom.jspf" %>
