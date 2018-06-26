@@ -14,8 +14,8 @@
                 <c:forEach items="${listArticles}" var="article">
                     <tr>
                         <td>
-                            <h2><a href="${contextPath}/element/${article.slug}">${article.title}</a></h2>
-                            <p>${article.content}</p>
+                            <h2>${article.title}</h2>
+                            <p>${article.content} <a href="${contextPath}/element/${article.slug}" class="badge badge-primary">Read</a></p>
                         </td>
                     </tr>
                 </c:forEach>
