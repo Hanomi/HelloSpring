@@ -15,6 +15,8 @@ public interface ArticleService {
 
     Article findById(Long id);
 
+    List<Article> findAllCutted();
+
     @Transactional
     void delete(String slug);
 }

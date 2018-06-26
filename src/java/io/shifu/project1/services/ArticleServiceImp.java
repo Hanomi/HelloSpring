@@ -38,6 +38,11 @@ public class ArticleServiceImp implements ArticleService {
     }
 
     @Override
+    public List<Article> findAllCutted() {
+        return articleRepository.findAllCutted();
+    }
+
+    @Override
     public void delete(String slug) {
         articleRepository.deleteBySlug(slug);
     }

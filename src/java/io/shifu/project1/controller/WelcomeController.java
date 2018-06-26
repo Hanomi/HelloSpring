@@ -20,7 +20,7 @@ public class WelcomeController {
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
     public String welcome(Model model) {
         //load all story
-        model.addAttribute("listArticles", articleService.findAll());
+        model.addAttribute("listArticles", articleService.findAllCutted());
 
         model.addAttribute("title", "Welcome");
         return "welcome";

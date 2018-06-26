@@ -13,7 +13,10 @@
                 <tbody>
                 <c:forEach items="${listArticles}" var="article">
                     <tr>
-                        <td><a href="${contextPath}/element/${article.slug}">${article.title}</a></td>
+                        <td>
+                            <h2><a href="${contextPath}/element/${article.slug}">${article.title}</a></h2>
+                            <p>${article.content}</p>
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>
