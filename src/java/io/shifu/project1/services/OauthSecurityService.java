@@ -6,7 +6,7 @@ import io.shifu.project1.model.User;
  * Security service
  */
 
-public interface SecurityService {
+public interface OauthSecurityService {
 
     String findLoggedInUsername();
 

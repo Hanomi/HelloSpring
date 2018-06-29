@@ -10,13 +10,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 /**
- *  Implementation of {@link SecurityService}
+ *  Implementation of {@link OauthSecurityService}
  */
 
 @Service
-public class SecurityServiceImpl implements SecurityService {
+public class OauthSecurityServiceImpl implements OauthSecurityService {
 
-    private static final Logger logger = LoggerFactory.getLogger(SecurityService.class);
+    private static final Logger logger = LoggerFactory.getLogger(OauthSecurityService.class);
 
     @Override
     public String findLoggedInUsername() {
@@ -30,8 +30,10 @@ public class SecurityServiceImpl implements SecurityService {
 
     @Override
     public void vkLogin(User user) {
+        org.springframework.security.core.userdetails.User user1 = new org.springframework.security.core.userdetails.User(user.getUsername(), "12345", AuthorityUtils.createAuthorityList("ROLE_USER"));
+
         UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(user.getUsername(), null, AuthorityUtils.createAuthorityList("ROLE_USER"));
+                new UsernamePasswordAuthenticationToken(user1, null, user1.getAuthorities());
 
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         logger.debug(String.format("Success vk logged - %s", user.getUsername()));

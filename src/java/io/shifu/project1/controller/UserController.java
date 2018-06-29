@@ -2,7 +2,6 @@ package io.shifu.project1.controller;
 
 import io.shifu.project1.model.User;
 import io.shifu.project1.services.EmailService;
-import io.shifu.project1.services.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
