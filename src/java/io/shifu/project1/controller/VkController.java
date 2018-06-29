@@ -53,15 +53,15 @@ public class VkController {
     }
 
 
-    @RequestMapping(value = "/vkLogin", method = RequestMethod.GET)
-    public void vkLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @RequestMapping(value = "/vkLogin")
+    public void vkLogin(HttpServletResponse response) throws IOException {
 
         final String authorizationUrl = service.getAuthorizationUrl();
         response.sendRedirect(authorizationUrl);
     }
 
     @RequestMapping(value = "/callback", method = RequestMethod.GET)
-    public String callback(@RequestParam(value = "code", required = true) String code, Model model) throws IOException, ExecutionException, InterruptedException {
+    public String callback(@RequestParam(value = "code", required = false) String code, Model model) throws IOException, ExecutionException, InterruptedException {
 
         try {
             final OAuth2AccessToken accessToken = service.getAccessToken(code);
@@ -96,6 +96,7 @@ public class VkController {
                 user = new User();
                 user.setVkId(userId);
                 user.setUsername(first_name + " " + last_name);
+                user.setPassword(null);
                 user.setEmail(email);
                 user.setEnabled(true);
                 userService.saveVk(user);
