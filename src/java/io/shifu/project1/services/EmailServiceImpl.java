@@ -2,6 +2,8 @@ package io.shifu.project1.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -11,10 +13,21 @@ import org.springframework.stereotype.Service;
 import java.util.Properties;
 
 @Service("emailService")
+@PropertySource(value = "classpath:mail.properties")
 public class EmailServiceImpl implements EmailService {
 
-    @Autowired
+    private final Environment env;
     private JavaMailSender mailSender;
+
+    @Autowired
+    public EmailServiceImpl(Environment env) {
+        this.env = env;
+    }
+
+    @Autowired
+    public void setMailSender(JavaMailSender mailSender) {
+        this.mailSender = mailSender;
+    }
 
     @Async
     public void sendEmail(SimpleMailMessage email) {
@@ -24,13 +37,12 @@ public class EmailServiceImpl implements EmailService {
     @Bean
     public JavaMailSender getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("smtp.gmail.com");
-        mailSender.setPort(587);
 
-        mailSender.setUsername("");
-        mailSender.setPassword("");
+        mailSender.setHost(env.getProperty("mail.host"));
+        mailSender.setPort(Integer.parseInt(env.getProperty("mail.port")));
+        mailSender.setUsername(env.getProperty("mail.userName"));
+        mailSender.setPassword(env.getProperty("mail.password"));
 
-        //todo mail.setJavaMailProperties file
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");
         props.put("mail.smtp.auth", "true");
