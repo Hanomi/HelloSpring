@@ -24,17 +24,18 @@ import java.util.UUID;
 @Controller
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    private final EmailService emailService;
+
+    private final UserValidator userValidator;
 
     @Autowired
-    private SecurityService securityService;
-
-    @Autowired
-    private EmailService emailService;
-
-    @Autowired
-    private UserValidator userValidator;
+    public UserController(UserService userService, EmailService emailService, UserValidator userValidator) {
+        this.userService = userService;
+        this.emailService = emailService;
+        this.userValidator = userValidator;
+    }
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {

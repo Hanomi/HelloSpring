@@ -6,6 +6,8 @@ public interface UserService {
 
     void save(User user);
 
+    void saveVk(User user);
+
     User findByUsername(String username);
 
     User findByEmail(String email);
@@ -13,4 +15,6 @@ public interface UserService {
     User findByConfirmationToken(String confirmationToken);
 
     void activationUser(User user);
+
+    User findByVkId(Long id);
 }

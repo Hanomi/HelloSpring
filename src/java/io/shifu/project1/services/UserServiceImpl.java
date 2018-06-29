@@ -50,6 +50,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void saveVk(User user) {
+        // присваеваем роль по умолчанию
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleRepository.getOne(1L));
+        user.setRoles(roles);
+        userRepository.save(user);
+    }
+
+    @Override
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
@@ -62,5 +71,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByConfirmationToken(String confirmationToken) {
         return userRepository.findByConfirmationToken(confirmationToken);
+    }
+
+    @Override
+    public User findByVkId(Long id) {
+        return userRepository.findByVkId(id);
     }
 }

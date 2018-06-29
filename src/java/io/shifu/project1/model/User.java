@@ -36,6 +36,9 @@ public class User {
     @Column(name = "enabled")
     private boolean enabled;
 
+    @Column(name = "vk_id")
+    private long vkId;
+
     public long getId() {
         return id;
     }
@@ -98,5 +101,13 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public long getVkId() {
+        return vkId;
+    }
+
+    public void setVkId(long vkId) {
+        this.vkId = vkId;
     }
 }
