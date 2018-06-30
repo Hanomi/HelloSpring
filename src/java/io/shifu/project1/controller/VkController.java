@@ -72,11 +72,25 @@ public class VkController {
 
             final OAuth2AccessToken accessToken = service.getAccessToken(code);
 
+            String email = "";
+
+            User user;
+
+            if (accessToken instanceof VKOAuth2AccessToken) {
+                // если в токене есть почта и она уже есть в базе сразу логиним с ролью юзер
+                email = ((VKOAuth2AccessToken) accessToken).getEmail();
+                user = userService.findByEmail(email);
+                if (user != null) {
+                    oauthSecurityService.vkLogin(user);
+                    return "redirect:/welcome";
+                }
+            }
+
             final OAuthRequest oauthRequest = new OAuthRequest(Verb.GET, PROTECTED_RESOURCE_URL);
             service.signRequest(accessToken, oauthRequest);
             final Response response = service.execute(oauthRequest);
 
-            String email = "";
+
             Long userId = 0l;
             String first_name = "";
             String last_name = "";
@@ -90,13 +104,7 @@ public class VkController {
                 last_name = temp.getString("last_name");
             }
 
-
-            if (accessToken instanceof VKOAuth2AccessToken) {
-                email = ((VKOAuth2AccessToken) accessToken).getEmail();
-            }
-
-            //todo check email
-            User user = userService.findByVkId(userId);
+            user = userService.findByVkId(userId);
 
             if (user == null) {
                 user = new User();
@@ -109,6 +117,7 @@ public class VkController {
             }
 
             oauthSecurityService.vkLogin(user);
+
         } catch (OAuth2AccessTokenErrorResponse e) {
             model.addAttribute("error", "Oops!  Error login, try again later pls.");
             return "login";

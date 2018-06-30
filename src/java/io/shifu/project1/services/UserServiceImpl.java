@@ -31,6 +31,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(User user) {
+        // не вк юзер
+        user.setVkId(0);
         // кодируем пароль
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         // присваеваем роль по умолчанию
